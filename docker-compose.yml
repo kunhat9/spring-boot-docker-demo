@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  web:
+    image: spring-demo:1.0
+    hostname: web-springboot2hour
+    build:
+      dockerfile: Dockerfile
+      context: ./demoSpringboots2hour
+    ports:
+      - "8089:8080"
+    depends_on:
+      - mysqldb
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://host-mysqldb:3306/test_db?autoReconnect=true&failOverReadOnly=false&maxReconnects=10&useSSL=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 123456
+#    restart: always
+  mysqldb:
+    image: mysql:5.7
+    hostname: host-mysqldb
+    environment:
+      - MYSQL_DATABASE=test_db
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_USER=nhatlv
+      - MYSQL_PASSWORD=123456
+    ports:
+      - "3309:3306"
+    volumes:
+      - mysql-data-demoSpring2hour:/var/lib/mysql
+#    restart: always
+volumes:
+  mysql-data-demoSpring2hour:
