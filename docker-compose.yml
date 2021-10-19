@@ -6,7 +6,7 @@ services:
     hostname: web-springboot2hour
     build:
       dockerfile: Dockerfile
-      context: ./demoSpringboots2hour
+      context: .
     ports:
       - "8089:8080"
     depends_on:
